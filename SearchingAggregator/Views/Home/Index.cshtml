@@ -1,0 +1,26 @@
+﻿@model SearchResponse
+@{
+    ViewData["Title"] = "Home Page";
+
+    <div style="align-content: center">
+        <form asp-action="Search" method="get" style="width: 80%; max-width: 500px;">
+            <div class="input-group">
+                <input type="text" class="form-control" name="query" value="@ViewBag.Query"
+                       placeholder="Enter your query..." />
+                <div class="input-group-append" style="margin-left: 10px">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+        @if (Model != null) {
+            <ul class="list-group list-group-flush">
+                @foreach (SearchResultItem item in Model.Items){
+                    <li class="list-group-item">
+                        <a href="@item.Link">@item.Title</a>
+                        <p style="color: dimgrey">@item.Snippet</p>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+}

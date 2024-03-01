@@ -1,0 +1,14 @@
+/SearchingAggregator.sln
+
+.DS_store
+node_modules
+*.txt
+.env
+.sass-cache
+*.dll
+*.user
+*.dll.config
+*.cache
+*/bin/
+*/obj/
+.idea/
