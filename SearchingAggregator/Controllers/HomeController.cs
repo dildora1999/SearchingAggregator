@@ -15,9 +15,9 @@ public class HomeController(ISearchService searchService) : Controller {
             return View("Error");
         }
 
-        SearchResponse searchResponse = await searchService.GetSearchResponse(query);
+        SearchResults searchResults = await searchService.GetSearchResponse(query);
         ViewBag.Query = query;
 
-        return View("Index", searchResponse);
+        return View("Index", searchResults);
     }
 }

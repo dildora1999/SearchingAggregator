@@ -1,5 +1,5 @@
 namespace SearchingAggregator.Models;
 
-public class SearchResponse {
+public class SearchResults {
     public List<SearchResultItem> Items { get; set; }
 }

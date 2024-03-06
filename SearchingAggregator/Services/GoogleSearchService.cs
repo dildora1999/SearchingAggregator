@@ -1,4 +1,6 @@
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
+using SearchingAggregator.Database;
 using SearchingAggregator.Models;
 
 namespace SearchingAggregator.Services;
@@ -7,7 +9,7 @@ internal class GoogleSearchService(IConfiguration configuration) : ISearchServic
     private string? _apiKey;
     private string? _searchEngineId;
 
-    public async Task<SearchResponse> GetSearchResponse(string query) {
+    public async Task<SearchResults> GetSearchResponse(string query) {
         _apiKey = configuration["GoogleCustomSearch:ApiKey"];
         _searchEngineId = configuration["GoogleCustomSearch:SearchEngineId"];
 
@@ -17,12 +19,23 @@ internal class GoogleSearchService(IConfiguration configuration) : ISearchServic
         HttpResponseMessage response = await httpClient.GetAsync(url);
 
         if (!response.IsSuccessStatusCode) {
-            return new SearchResponse();
+            return new SearchResults();
         }
 
         var content = await response.Content.ReadAsStringAsync();
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-        SearchResponse searchResults = JsonSerializer.Deserialize<SearchResponse>(content, options) ?? new SearchResponse();
+        SearchResults searchResults = JsonSerializer.Deserialize<SearchResults>(content, options) ?? new SearchResults();
+        await using (var dbContext = new SearchResultsDbContext(new DbContextOptions<SearchResultsDbContext>())) {
+            var searchResultsEntity = new SearchResultsEntity { Query = query, CreationDate = DateTime.Now, SearchResultItemEntities = new List<SearchResultItemEntity>() };
+
+            foreach (SearchResultItem item in searchResults.Items) {
+                searchResultsEntity.SearchResultItemEntities.Add(new SearchResultItemEntity {
+                    Query = query, Title = item.Title, Link = item.Link, Description = item.Snippet
+                });
+            }
+
+            dbContext.SearchResultsEntities.Add(searchResultsEntity);
+        }
 
         return searchResults;
     }

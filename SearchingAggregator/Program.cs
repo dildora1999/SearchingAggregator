@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using SearchingAggregator.Database;
 using SearchingAggregator.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -5,6 +7,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ISearchService, GoogleSearchService>();
+builder.Services.AddDbContext<SearchResultsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SearchResultsDbContext")));
 
 WebApplication app = builder.Build();
 
