@@ -1,4 +1,4 @@
-using SearchingAggregator.Models;
+using SearchingAggregator.Serialization;
 
 namespace SearchingAggregator.Services;
 

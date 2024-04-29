@@ -1,4 +1,4 @@
-namespace SearchingAggregator.Models;
+namespace SearchingAggregator.Serialization;
 
 public class SearchResultItem {
     public string Title { get; set; }

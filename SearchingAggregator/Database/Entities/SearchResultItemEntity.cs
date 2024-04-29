@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SearchingAggregator.Database;
+namespace SearchingAggregator.Database.Entities;
 
 public class SearchResultItemEntity {
 	[Key]

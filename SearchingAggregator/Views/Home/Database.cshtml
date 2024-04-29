@@ -1,15 +1,16 @@
 ﻿@using SearchingAggregator.Serialization
 @model SearchingAggregator.Serialization.SearchResults
-@{
-    ViewData["Title"] = "Search from Google";
 
+@{
+    ViewData["Title"] = "Find from database";
+    
     <div style="align-content: center">
-        <form asp-action="Search" method="get" style="width: 80%; max-width: 500px;">
+        <form asp-action="FindFromDatabase" method="get" style="width: 80%; max-width: 500px;">
             <div class="input-group">
                 <input type="text" class="form-control" name="query" value="@ViewBag.Query"
-                       placeholder="Enter your query..." />
+                       placeholder="Search from database..." />
                 <div class="input-group-append" style="margin-left: 10px">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                    <button class="btn btn-primary" type="submit">Find</button>
                 </div>
             </div>
         </form>

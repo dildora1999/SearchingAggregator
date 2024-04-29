@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SearchingAggregator.Database.Entities;
 
 namespace SearchingAggregator.Database;
 
@@ -8,7 +9,7 @@ public class SearchResultsDbContext(DbContextOptions<SearchResultsDbContext> opt
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 		if (!optionsBuilder.IsConfigured) {
-			optionsBuilder.UseSqlServer("Server=localhost;Database=SearchResultsDatabase;TrustServerCertificate=True");
+			optionsBuilder.UseSqlServer("Server=localhost;Database=SearchResultsDatabase;User=sa;Password=Dildora22*;TrustServerCertificate=True");
 		}
 	}
 	protected override void OnModelCreating(ModelBuilder modelBuilder) {
