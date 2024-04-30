@@ -34,6 +34,6 @@ public class HomeController(ISearchService searchService, ISearchResultsReposito
 
         SearchResults? searchResults = await searchResultsRepository.FindResultsByQuery(query);
         ViewBag.Query = query;
-        return View("Index", searchResults);
+        return View("Database", searchResults);
     }
 }
