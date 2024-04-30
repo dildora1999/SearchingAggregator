@@ -7,7 +7,6 @@ namespace SearchingAggregator.Services;
 internal class GoogleSearchService(IConfiguration configuration, ISearchResultsRepository searchResultsRepository) : ISearchService {
     private string? _apiKey;
     private string? _searchEngineId;
-    private ISearchResultsRepository _searchResultsRepository = searchResultsRepository;
 
     public async Task<SearchResults> GetSearchResponse(string query) {
         _apiKey = configuration["GoogleCustomSearch:ApiKey"];
@@ -26,7 +25,7 @@ internal class GoogleSearchService(IConfiguration configuration, ISearchResultsR
         var searchResults = await DeserializeResponse(response);
         
         //insert into database
-        await _searchResultsRepository.InsertQueryResults(query, searchResults);
+        await searchResultsRepository.InsertQueryResults(query, searchResults);
 
         return searchResults;
     }
