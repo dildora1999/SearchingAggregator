@@ -9,7 +9,7 @@ public class SearchResultsDbContext(DbContextOptions<SearchResultsDbContext> opt
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 		if (!optionsBuilder.IsConfigured) {
-			optionsBuilder.UseSqlServer("Server=localhost;Database=SearchResultsDatabase;User=sa;Password=Dildora22*;TrustServerCertificate=True");
+			optionsBuilder.UseSqlServer("Server=localhost;Database=SearchResultsDatabase;User= ;Password= ;MultipleActiveResultSets=true;Trust Server Certificate=True;");
 		}
 	}
 	protected override void OnModelCreating(ModelBuilder modelBuilder) {
